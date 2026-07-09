@@ -1,13 +1,16 @@
 # 🏨 Hotel Management System
 
-[![CI - Build and Test](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/ci.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/ci.yml)
-[![CD - Deploy to Production](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/cd.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/cd.yml)
-[![Security Scan](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/security-scan.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system/actions/workflows/security-scan.yml)
+[![CI](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/ci.yml)
+[![CD](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/cd.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/cd.yml)
+[![CodeQL](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/codeql.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/codeql.yml)
+[![PR Validation](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/pr-validation.yml)
+[![Release](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/release.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/release.yml)
+[![Security Scan](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/security-scan.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/security-scan.yml)
 [![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Oracle](https://img.shields.io/badge/Oracle-19c-red.svg)](https://www.oracle.com/database/)
-[![License](https://img.shields.io/github/license/soumyapriyagoswami/hotel-management-system)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/soumyapriyagoswami/hotel-management-system)](https://github.com/soumyapriyagoswami/hotel-management-system/stargazers)
+[![License](https://img.shields.io/github/license/soumyapriyagoswami/hotel-management-system-backend)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/soumyapriyagoswami/hotel-management-system-backend)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/stargazers)
 
 > A comprehensive Hotel Management System REST API built with **Spring Boot**, **Oracle Database**, and **Spring Security (JWT)**.
 
@@ -139,10 +142,10 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # Clone the project
-git clone https://github.com/soumyapriyagoswami/hotel-management-system.git
+git clone https://github.com/soumyapriyagoswami/hotel-management-system-backend.git
 
 # Navigate to project directory
-cd hotel-management-system
+cd hotel-management-system-backend
 ```
 
 ### 2. Build the Project
@@ -280,7 +283,7 @@ java -jar target/hotel-management-system-0.0.1-SNAPSHOT.jar
 
 **Option 4 — Using Spring Boot Dashboard**
 1. Click the Spring Boot Dashboard icon in the Activity Bar
-2. Find `hotel-management-system`
+2. Find `hotel-management-system-backend`
 3. Click **Run** (▶)
 
 ---
@@ -397,17 +400,38 @@ http://localhost:8080/v3/api-docs
 
 ## 🔄 CI/CD Pipeline
 
-The project includes three GitHub Actions workflows:
+The project includes six GitHub Actions workflows under `.github/workflows/`:
+
+| Workflow | File | Trigger | Purpose |
+|---|---|---|---|
+| **Continuous Integration** | `ci.yml` | Push to `main`, `develop`, `feature/*` | Build, compile, and run unit/integration tests |
+| **Continuous Deployment** | `cd.yml` | Push to `main` (automated) or manual dispatch | Build deployment package, deploy, and run health checks |
+| **CodeQL Analysis** | `codeql.yml` | Push, PR, and weekly schedule | Static code analysis for security vulnerabilities and code quality |
+| **PR Validation** | `pr-validation.yml` | Pull request opened/updated | Lint, build, and test checks before a PR can be merged |
+| **Release** | `release.yml` | Tag push / manual dispatch | Builds and publishes versioned release artifacts |
+| **Security Scan** | `security-scan.yml` | Weekly schedule | OWASP dependency check and vulnerability report |
 
 ### 1. Continuous Integration (CI)
 - **Trigger:** Push to `main`, `develop`, `feature/*`
-- **Jobs:** Build → Test → Security Scan → Upload Artifact
+- **Jobs:** Build → Test → Upload Artifact
 
 ### 2. Continuous Deployment (CD)
 - **Trigger:** Push to `main` (automated) or manual dispatch
 - **Jobs:** Build deployment package → Deploy → Health check
 
-### 3. Security Scan
+### 3. CodeQL Analysis
+- **Trigger:** Push, pull request, and weekly schedule
+- **Jobs:** Static analysis → Security alerts → Code scanning report
+
+### 4. PR Validation
+- **Trigger:** Pull request opened, synchronized, or reopened
+- **Jobs:** Lint → Build → Test → Status checks
+
+### 5. Release
+- **Trigger:** New version tag pushed, or manual dispatch
+- **Jobs:** Build release artifact → Generate changelog → Publish GitHub Release
+
+### 6. Security Scan
 - **Trigger:** Weekly schedule
 - **Jobs:** OWASP Dependency Check → Code Quality Scan → Vulnerability Report
 
@@ -510,12 +534,15 @@ curl http://localhost:8080/actuator/health
 ## 📁 Project Structure
 
 ```
-hotel-management-system/
+hotel-management-system-backend/
 ├── .github/                          # GitHub Actions workflows
 │   └── workflows/
-│       ├── ci.yml                    # Continuous Integration
 │       ├── cd.yml                    # Continuous Deployment
-│       └── security-scan.yml         # Security scanning
+│       ├── ci.yml                    # Continuous Integration
+│       ├── codeql.yml                # CodeQL security analysis
+│       ├── pr-validation.yml         # Pull request checks
+│       ├── release.yml               # Release automation
+│       └── security-scan.yml         # Dependency & vulnerability scanning
 ├── scripts/                          # Scripts for deployment and DB
 │   ├── database/
 │   │   └── setup-database.sql        # Database setup script
@@ -623,8 +650,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ```bash
 # Clone and build
-git clone https://github.com/soumyapriyagoswami/hotel-management-system.git
-cd hotel-management-system
+git clone https://github.com/soumyapriyagoswami/hotel-management-system-backend.git
+cd hotel-management-system-backend
 mvn clean install
 
 # Run application

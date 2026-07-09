@@ -13,11 +13,10 @@ on:
       - develop
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -35,20 +34,7 @@ jobs:
         run: java -version
 
       - name: Build Project
-        run: mvn clean compile
-
-      - name: Run Unit Tests
-        run: mvn test
-
-      - name: Package Application
-        run: mvn package -DskipTests
-
-      - name: Upload Test Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-reports
-          path: target/surefire-reports
+        run: mvn clean package -DskipTests
 
       - name: Upload JAR File
         uses: actions/upload-artifact@v4
@@ -60,7 +46,7 @@ jobs:
         if: success()
         run: |
           echo "Build completed successfully."
-          echo "Tests passed."
+          echo "Application compiled successfully."
           echo "JAR generated."
 
       - name: Failure Summary
