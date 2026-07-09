@@ -5,7 +5,6 @@
 [![CodeQL](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/codeql.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/codeql.yml)
 [![PR Validation](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/pr-validation.yml)
 [![Release](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/release.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/release.yml)
-[![Security Scan](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/security-scan.yml/badge.svg)](https://github.com/soumyapriyagoswami/hotel-management-system-backend/actions/workflows/security-scan.yml)
 [![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Oracle](https://img.shields.io/badge/Oracle-19c-red.svg)](https://www.oracle.com/database/)
