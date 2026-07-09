@@ -1,0 +1,70 @@
+name: Hotel Management System CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Give Maven Execute Permission
+        run: chmod +x mvnw || true
+
+      - name: Display Java Version
+        run: java -version
+
+      - name: Build Project
+        run: mvn clean compile
+
+      - name: Run Unit Tests
+        run: mvn test
+
+      - name: Package Application
+        run: mvn package -DskipTests
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: target/surefire-reports
+
+      - name: Upload JAR File
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotel-management-system
+          path: target/*.jar
+
+      - name: Build Summary
+        if: success()
+        run: |
+          echo "Build completed successfully."
+          echo "Tests passed."
+          echo "JAR generated."
+
+      - name: Failure Summary
+        if: failure()
+        run: |
+          echo "Build failed."
+          exit 1
