@@ -35,7 +35,7 @@ jobs:
           cp target/*.jar release/
 
       - name: Upload Release Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: hotel-management-release
           path: release/

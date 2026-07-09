@@ -37,7 +37,7 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Upload JAR File
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: hotel-management-system
           path: target/*.jar
